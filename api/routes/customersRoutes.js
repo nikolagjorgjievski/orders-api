@@ -3,38 +3,38 @@ const express = require('express');
 const router = express.Router();
 
 /* Load controller */
-const OrdersController = require('../controllers/ordersController');
-const ordersController = new OrdersController();
+const CustomerController = require('../controllers/customersController');
+const customerController = new CustomerController();
 
 /**
  * Entity routes
  */
 router.get('/', function (req, res) {
-    ordersController.findAll(res);
+    customerController.findAll(res);
 });
 
 router.get('/count', function (req, res) {
-    ordersController.countAll(res);
+    customerController.countAll(res);
 });
 
 router.get('/exists/:id', function (req, res) {
-    ordersController.exists(req, res);
+    customerController.exists(req, res);
 });
 
 router.get('/:id', function (req, res) {
-    ordersController.findById(req, res);
+    customerController.findById(req, res);
 });
 
 router.put('/:id', function (req, res) {
-    ordersController.update(req, res);
+    customerController.update(req, res);
 });
 
 router.post('/', function (req, res) {
-    ordersController.create(req, res);
+    customerController.create(req, res);
 });
 
 router.delete('/:id', function (req, res) {
-    ordersController.deleteById(req, res);
+    customerController.deleteById(req, res);
 });
 
 module.exports = router;

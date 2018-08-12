@@ -3,9 +3,10 @@
  */
 
 class Order {
-    constructor(id, customer, item, price, currency) {
+    constructor(id, customerName, customerAddress, item, price, currency) {
         this.id = id;
-        this.customer = customer;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
         this.item = item;
         this.price = price;
         this.currency = currency;

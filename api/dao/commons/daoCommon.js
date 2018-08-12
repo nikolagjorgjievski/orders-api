@@ -20,9 +20,7 @@ class Common {
                         new DaoError(20, "Internal server error")
                     );
                 } else if (rows === null || rows.length === 0) {
-                    reject(
-                        new DaoError(21, "Entity not found")
-                    );
+                    resolve([]);
                 } else {
                     resolve(rows);
                 }
@@ -39,9 +37,7 @@ class Common {
                         new DaoError(11, "Invalid arguments")
                     );
                 } else if (rows === null || rows.length === 0) {
-                    reject(
-                        new DaoError(21, "Entity not found")
-                    );
+                    resolve({});
                 } else {
                     let row = rows[0];
                     resolve(row);
@@ -74,7 +70,7 @@ class Common {
             let stmt = database.db.prepare(sqlRequest);
             stmt.run(sqlParams, function (err) {
                 if (this.changes === 1) {
-                    resolve(true);
+                    resolve(this.lastID);
                 } else if (this.changes === 0) {
                     reject(
                         new DaoError(21, "Entity not found")

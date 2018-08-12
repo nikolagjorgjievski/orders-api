@@ -1,19 +1,19 @@
 /* Load Data Access Object */
-const OrderDao = require('../dao/orderDao');
+const CustomerDao = require('../dao/customerDao');
 
 /* Load Controller Common function */
 const ControllerCommon = require('./common/controllerCommon');
 
-/* Load Order entity */
-const Order = require('../models/order');
+/* Load Customer entity */
+const Customer = require('../models/customer');
 
 /**
- * Order Controller
+ * Customer Controller
  */
-class OrderController {
+class CustomerController {
 
     constructor() {
-        this.orderDao = new OrderDao();
+        this.customerDao = new CustomerDao();
         this.common = new ControllerCommon();
     }
 
@@ -25,7 +25,7 @@ class OrderController {
     findById(req, res) {
         let id = req.params.id;
 
-        this.orderDao.findById(id)
+        this.customerDao.findById(id)
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
     };
@@ -35,7 +35,7 @@ class OrderController {
      * @return all entities
      */
     findAll(res) {
-        this.orderDao.findAll()
+        this.customerDao.findAll()
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
     };
@@ -46,7 +46,7 @@ class OrderController {
      */
     countAll(res) {
 
-        this.orderDao.countAll()
+        this.customerDao.countAll()
             .then(this.common.findSuccess(res))
             .catch(this.common.serverError(res));
     };
@@ -57,15 +57,13 @@ class OrderController {
      * @return true if the entity has been updated, false if not found and not updated
      */
     update(req, res) {
-        let order = new Order();
-        order.id = req.params.id;
-        order.customerName = req.body.customerName;
-        order.customerAddress = req.body.customerAddress;
-        order.item = req.body.item;
-        order.price = req.body.price;
-        order.currency = req.body.currency;
+        let customer = new Customer();
+        customer.id = req.params.id;
 
-        return this.orderDao.update(order)
+        customer.name = req.body.name;
+        customer.address = req.body.address;
+
+        return this.customerDao.update(customer)
             .then(this.common.editSuccess(res))
             .catch(this.common.serverError(res));
     };
@@ -76,14 +74,11 @@ class OrderController {
      * returns database insertion status
      */
     create(req, res) {
-        let order = new Order();
-        order.customerName = req.body.customerName;
-        order.customerAddress = req.body.customerAddress;
-        order.item = req.body.item;
-        order.price = req.body.price;
-        order.currency = req.body.currency;
+        let customer = new Customer();
+        customer.name = req.body.name;
+        customer.address = req.body.address;
 
-        return this.orderDao.create(order)
+        return this.customerDao.create(customer)
             .then(this.common.editSuccess(res))
             .catch(this.common.serverError(res));
     };
@@ -96,7 +91,7 @@ class OrderController {
     deleteById(req, res) {
         let id = req.params.id;
 
-        this.orderDao.deleteById(id)
+        this.customerDao.deleteById(id)
             .then(this.common.editSuccess(res))
             .catch(this.common.serverError(res));
     };
@@ -109,10 +104,10 @@ class OrderController {
     exists(req, res) {
         let id = req.params.id;
 
-        this.orderDao.exists(id)
+        this.customerDao.exists(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
 }
 
-module.exports = OrderController;
+module.exports = CustomerController;
